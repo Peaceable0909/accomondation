@@ -98,7 +98,7 @@
             </nav>
 
             <div class="sign-out" style="margin-top: auto; padding-top: 40px;">
-                <a href="index.html" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;"><i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span></a>
+                <a href="#" id="logout-btn" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;"><i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span></a>
             </div>
         </aside>
 
@@ -181,6 +181,11 @@
     <script type="module">
         import StayStudentAPI from './js/api.js';
 
+        // Session Check
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             const listings = await StayStudentAPI.fetchAllListings();
             const tableBody = document.getElementById('admin-table-body');
@@ -228,6 +233,17 @@
             }
             
             if (window.lucide) window.lucide.createIcons();
+
+            // Logout Logic
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('admin_logged_in');
+                    localStorage.removeItem('admin_user');
+                    window.location.href = 'login.html';
+                });
+            }
         });
     </script>
 </body>

@@ -44,12 +44,12 @@
             <h1 style="font-size: 1.8rem; margin-bottom: 8px;">Admin Portal</h1>
             <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 32px;">Secure access for agency partners</p>
             
-            <form action="admin.html" style="text-align: left;">
+            <form id="login-form" style="text-align: left;">
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Email Address</label>
                     <div style="position: relative;">
                         <i data-lucide="mail" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; color: #94a3b8;"></i>
-                        <input type="email" value="agent@unistayelite.com" style="width: 100%; padding: 14px 14px 14px 48px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem;">
+                        <input type="email" id="email" value="agent@unistayelite.com" required style="width: 100%; padding: 14px 14px 14px 48px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem;">
                     </div>
                 </div>
                 <div style="margin-bottom: 24px;">
@@ -59,7 +59,7 @@
                     </div>
                     <div style="position: relative;">
                         <i data-lucide="lock" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; color: #94a3b8;"></i>
-                        <input type="password" value="password123" style="width: 100%; padding: 14px 14px 14px 48px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem;">
+                        <input type="password" id="password" placeholder="Enter password" required style="width: 100%; padding: 14px 14px 14px 48px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem;">
                     </div>
                 </div>
                 
@@ -81,6 +81,30 @@
             </p>
         </div>
     </div>
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+        
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // The password provided by the user
+            const correctPassword = 'Precious@@@2026';
+            const correctEmail = 'agent@unistayelite.com';
+            
+            if (email === correctEmail && password === correctPassword) {
+                // Set a simple session flag
+                localStorage.setItem('admin_logged_in', 'true');
+                localStorage.setItem('admin_user', email);
+                
+                // Redirect to admin dashboard
+                window.location.href = 'admin.html';
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        });
+    </script>
 </body>
 </html>
