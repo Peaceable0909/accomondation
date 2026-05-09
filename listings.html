@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Listings | StayStudent</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border-bottom: 1px solid #f1f5f9;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #1e3a8a;">
+                <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                </div>
+                UniStay<span style="color: #2563eb;">Elite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html" style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 4px;">Listings</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" style="background: #0f172a; color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem;">Admin Portal</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="listings.html" class="btn btn-primary" style="border-radius: 30px; font-weight: 700;">Browse Rooms</a>
+            </div>
+            <button class="mobile-menu-btn"><i data-lucide="menu"></i></button>
+        </div>
+    </nav>
+
+    <main class="container section-padding" style="margin-top: 80px;">
+        <div style="margin-bottom: 40px;" data-aos="fade-up">
+            <h1 style="font-size: 2.5rem; margin-bottom: 8px;">Explore Student Homes</h1>
+            <p id="results-count" style="color: var(--text-muted);">Finding the best places for you...</p>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="card" style="padding: 24px; margin-bottom: 40px;" data-aos="fade-up">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="position: relative;">
+                    <i data-lucide="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; color: var(--text-muted);"></i>
+                    <input type="text" id="search-input" placeholder="Search by title or description..." style="width: 100%; padding: 14px 14px 14px 44px; border-radius: var(--radius); border: 1px solid var(--border); font-size: 1rem; outline: none; transition: var(--transition);">
+                </div>
+                <div>
+                    <select id="city-filter" style="width: 100%; padding: 14px; border-radius: var(--radius); border: 1px solid var(--border); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="all">All Cities</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="type-filter" style="width: 100%; padding: 14px; border-radius: var(--radius); border: 1px solid var(--border); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="all">Any Room Type</option>
+                        <option value="Studio">Studio</option>
+                        <option value="En-suite">En-suite</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="House Share">House Share</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="availability-filter" style="width: 100%; padding: 14px; border-radius: var(--radius); border: 1px solid var(--border); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="all">All Status</option>
+                        <option value="available">Available Now</option>
+                        <option value="unavailable">Coming Soon</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listings Grid -->
+        <div id="listings-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;">
+            <!-- Loading Skeletons via JS -->
+        </div>
+    </main>
+
+    <footer style="background: #0f172a; color: #ffffff; padding: 80px 0 40px; margin-top: 80px;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; margin-bottom: 60px;">
+            <div>
+                <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #ffffff; margin-bottom: 24px;">
+                    <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    UniStay<span style="color: #2563eb;">Elite</span>
+                </a>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
+                    Your trusted partner in finding the best student accommodation across the UK. Verified properties, simple booking.
+                </p>
+                <div style="display: flex; gap: 16px;">
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="facebook" style="width: 20px;"></i></a>
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="instagram" style="width: 20px;"></i></a>
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="twitter" style="width: 20px;"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Quick Links</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li><a href="index.html" style="color: inherit;">Home</a></li>
+                    <li><a href="listings.html" style="color: inherit;">Browse Listings</a></li>
+                    <li><a href="about.html" style="color: inherit;">About Us</a></li>
+                    <li><a href="contact.html" style="color: inherit;">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Support</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li><a href="#" style="color: inherit;">Privacy Policy</a></li>
+                    <li><a href="#" style="color: inherit;">Terms of Service</a></li>
+                    <li><a href="#" style="color: inherit;">Student Guide</a></li>
+                    <li><a href="#" style="color: inherit;">Partner with Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Contact</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mail" style="width: 16px;"></i> bun.otravelservices@gmail.com</li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="phone" style="width: 16px;"></i> +44 7444 543287</li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="message-circle" style="width: 16px;"></i> WhatsApp Inquiry Available</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; color: #64748b; font-size: 0.85rem;">
+            <p>&copy; 2024 UniStay Elite. All rights reserved.</p>
+            <div style="display: flex; gap: 24px;">
+                <a href="login.html" style="color: inherit;">Member Login</a>
+                <a href="#" style="color: inherit;">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/listings.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

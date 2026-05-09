@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | StayStudent</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          // Initialize with your Public Key
+          // emailjs.init("YOUR_PUBLIC_KEY");
+       })();
+    </script>
+</head>
+<body>
+    <nav class="glass scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i data-lucide="home"></i> StayStudent</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Browse Listings</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html" style="color: var(--primary);">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://wa.me/447444543287" target="_blank" class="btn btn-primary">WhatsApp Us</a>
+            </div>
+            <button class="mobile-menu-btn"><i data-lucide="menu"></i></button>
+        </div>
+    </nav>
+
+    <main class="container section-padding" style="margin-top: 80px;">
+        <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
+            <h1 style="font-size: 3rem;">Get In Touch</h1>
+            <p style="color: var(--text-muted);">Have questions? We're here to help you find your perfect stay.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 60px;">
+            <!-- Contact Info -->
+            <div data-aos="fade-up">
+                <div class="card" style="padding: 32px; height: 100%;">
+                    <h3 style="margin-bottom: 24px;">Contact Information</h3>
+                    
+                    <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                        <div style="color: var(--primary);"><i data-lucide="mail"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 4px;">Email</h4>
+                            <p style="color: var(--text-muted);">bun.otravelservices@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                        <div style="color: var(--primary);"><i data-lucide="phone"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 4px;">Phone</h4>
+                            <p style="color: var(--text-muted);">+44 (0) 7444 543287</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                        <div style="color: var(--primary);"><i data-lucide="message-circle"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 4px;">WhatsApp</h4>
+                            <p style="color: var(--text-muted);">Available 9am - 6pm (GMT)</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--border);">
+                        <h4 style="margin-bottom: 16px;">Social Media</h4>
+                        <div style="display: flex; gap: 12px;">
+                            <a href="#" style="background: var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary);"><i data-lucide="facebook"></i></a>
+                            <a href="#" style="background: var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary);"><i data-lucide="instagram"></i></a>
+                            <a href="#" style="background: var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary);"><i data-lucide="twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div data-aos="fade-up">
+                <div class="card" style="padding: 40px;">
+                    <form id="contact-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">Full Name</label>
+                                <input type="text" name="full_name" required style="width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); outline: none;">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">Email Address</label>
+                                <input type="email" name="email" required style="width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); outline: none;">
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">Phone Number</label>
+                                <input type="tel" name="phone" style="width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); outline: none;">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">Preferred City</label>
+                                <select name="city" style="width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); outline: none;">
+                                    <option value="Not Specified">Select City</option>
+                                    <option value="London">London</option>
+                                    <option value="Manchester">Manchester</option>
+                                    <option value="Liverpool">Liverpool</option>
+                                    <option value="Birmingham">Birmingham</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 30px;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;">Your Message</label>
+                            <textarea id="message" name="message" required rows="6" style="width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); outline: none;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">Send Message</button>
+                    </form>
+                    <div id="form-status" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FAQ Section -->
+    <section class="section-padding" style="background: var(--white); border-top: 1px solid var(--border);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px;">Frequently Asked Questions</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);" data-aos="fade-up">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 12px;">How do I book a viewing?</h3>
+                    <p style="color: var(--text-muted);">The easiest way is to click the WhatsApp button on any listing page. You can also use the contact form above, and our agent will reach out within 24 hours.</p>
+                </div>
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);" data-aos="fade-up">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 12px;">Are bills included in the price?</h3>
+                    <p style="color: var(--text-muted);">Check the "Bills Included" badge on each listing. For most of our managed properties, utilities, high-speed WiFi, and water are included.</p>
+                </div>
+                <div style="margin-bottom: 24px; padding-bottom: 24px;" data-aos="fade-up">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 12px;">Is there a booking fee?</h3>
+                    <p style="color: var(--text-muted);">No, we do not charge students any direct booking or administration fees. Any security deposits go directly to the property manager or landlord.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 StayStudent Agency. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/contact.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | StayStudent</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <nav class="glass scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i data-lucide="home"></i> StayStudent</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Browse Listings</a></li>
+                <li><a href="about.html" style="color: var(--primary);">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="listings.html" class="btn btn-primary">Book Now</a>
+            </div>
+            <button class="mobile-menu-btn"><i data-lucide="menu"></i></button>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section class="section-padding" style="margin-top: 80px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+                <div data-aos="fade-up">
+                    <span style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Our Mission</span>
+                    <h1 style="font-size: 3rem; margin: 12px 0 24px;">Simplifying Student<br>Living Since 2018</h1>
+                    <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 24px;">
+                        StayStudent was founded with a simple goal: to help students find safe, affordable, and high-quality accommodation without the hassle.
+                    </p>
+                    <p style="color: var(--text-muted); margin-bottom: 32px;">
+                        We understand that moving to a new city for university can be daunting. Our platform connects you with verified local landlords and managed student residences, ensuring you have a perfect environment to live, learn, and grow.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div>
+                            <h2 style="color: var(--primary); font-size: 2.5rem;">500+</h2>
+                            <p style="font-weight: 500;">Verified Rooms</p>
+                        </div>
+                        <div>
+                            <h2 style="color: var(--primary); font-size: 2.5rem;">10k+</h2>
+                            <p style="font-weight: 500;">Happy Students</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-up" style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1523240715632-d984bb4b990a?q=80&w=1470&auto=format&fit=crop" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                    <div class="glass" style="position: absolute; bottom: -30px; left: -30px; padding: 24px; border-radius: var(--radius); width: 250px;">
+                        <i data-lucide="award" style="color: var(--primary); margin-bottom: 8px;"></i>
+                        <h4 style="margin-bottom: 4px;">Top Rated Agency</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Voted best student housing platform 2025.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team / Values Section -->
+    <section class="section-padding" style="background: var(--white);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
+                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">Our Core Values</h2>
+                <p style="color: var(--text-muted);">What drives us every single day.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <div class="card" style="padding: 32px; border: none; background: var(--background);" data-aos="fade-up">
+                    <h3 style="margin-bottom: 16px;">Transparency</h3>
+                    <p style="color: var(--text-muted);">We believe in honest pricing, real photos, and no hidden administration fees.</p>
+                </div>
+                <div class="card" style="padding: 32px; border: none; background: var(--background);" data-aos="fade-up">
+                    <h3 style="margin-bottom: 16px;">Security</h3>
+                    <p style="color: var(--text-muted);">Your safety is priority. All properties meet strict health and safety standards.</p>
+                </div>
+                <div class="card" style="padding: 32px; border: none; background: var(--background);" data-aos="fade-up">
+                    <h3 style="margin-bottom: 16px;">Community</h3>
+                    <p style="color: var(--text-muted);">Helping you find not just a room, but a place where you can build lifelong friendships.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <a href="#" class="footer-logo">StayStudent</a>
+                <p class="footer-desc">Your trusted partner in finding the best student accommodation.</p>
+            </div>
+            <div class="footer-bottom" style="grid-column: 1/-1; margin-top: 40px;">
+                <p>&copy; 2026 StayStudent Agency. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

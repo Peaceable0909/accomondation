@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | UniStay Elite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @media (max-width: 1024px) {
+            #admin-sidebar {
+                width: 80px !important;
+                padding: 24px 12px !important;
+            }
+            #admin-sidebar span, #admin-sidebar p, #admin-sidebar h4, #admin-sidebar nav a span, #admin-sidebar .user-info div {
+                display: none !important;
+            }
+            #admin-sidebar nav a {
+                justify-content: center !important;
+                padding: 12px 0 !important;
+            }
+            #admin-sidebar .logo {
+                justify-content: center !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #admin-layout {
+                flex-direction: column !important;
+            }
+            #admin-sidebar {
+                width: 100% !important;
+                height: auto !important;
+                min-height: auto !important;
+                border-right: none !important;
+                border-bottom: 1px solid #f1f5f9 !important;
+                padding: 16px !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            #admin-sidebar .logo, #admin-sidebar .user-info, #admin-sidebar nav, #admin-sidebar .sign-out {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            #admin-sidebar nav ul {
+                flex-direction: row !important;
+                gap: 16px !important;
+            }
+            #admin-sidebar .user-info, #admin-sidebar .sign-out {
+                display: none !important;
+            }
+            #admin-main {
+                padding: 24px 16px !important;
+            }
+            header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 20px !important;
+            }
+            header > div:last-child {
+                width: 100% !important;
+            }
+            header input {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body style="background: #f8fafc;">
+    
+    <div id="admin-layout" style="display: flex; min-height: 100vh;">
+        <!-- Sidebar -->
+        <aside id="admin-sidebar" style="width: 260px; background: #ffffff; border-right: 1px solid #f1f5f9; padding: 32px 20px; display: flex; flex-direction: column;">
+            <div class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; margin-bottom: 40px; color: #1e3a8a;">
+                <div style="width: 28px; height: 28px; background: #2563eb; color: #ffffff; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="home" style="width: 16px; height: 16px;"></i>
+                </div>
+                <span>UniStay<span style="color: #2563eb;">Elite</span></span>
+            </div>
+
+            <div class="user-info" style="margin-bottom: 32px; padding: 16px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                <img src="https://i.pravatar.cc/100?u=admin" style="width: 40px; height: 40px; border-radius: 50%;">
+                <div>
+                    <h4 style="font-size: 0.85rem; margin: 0;">Agent Admin</h4>
+                    <p style="font-size: 0.7rem; color: #64748b;">Property Manager</p>
+                </div>
+            </div>
+
+            <nav>
+                <ul style="display: flex; flex-direction: column; gap: 8px; list-style: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: #eff6ff; color: #2563eb; font-weight: 600; text-decoration: none;"><i data-lucide="layout-dashboard" style="width: 18px;"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="list" style="width: 18px;"></i> <span>Manage Listings</span></a></li>
+                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="message-square" style="width: 18px;"></i> <span>Inquiries</span></a></li>
+                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="settings" style="width: 18px;"></i> <span>Settings</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="sign-out" style="margin-top: auto; padding-top: 40px;">
+                <a href="index.html" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;"><i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="admin-main" style="flex: 1; padding: 40px 60px; min-width: 0;">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <div>
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Management Overview</p>
+                    <h1 style="font-size: 2rem;">Manage Listings</h1>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <div style="position: relative;">
+                        <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; color: #94a3b8;"></i>
+                        <input type="text" placeholder="Search properties..." style="padding: 10px 12px 10px 36px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.9rem; width: 250px;">
+                    </div>
+                    <button class="btn btn-outline" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 700;">
+                        <i data-lucide="filter" style="width: 16px;"></i> Filter
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 40px;">
+                <div class="card" style="padding: 24px; border-radius: 20px;">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Total Listings</p>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <h2 id="stat-total" style="font-size: 2.2rem; margin: 0;">0</h2>
+                    </div>
+                </div>
+                <div class="card" style="padding: 24px; border-radius: 20px;">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Active Listings</p>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <h2 id="stat-active" style="font-size: 2.2rem; margin: 0;">0</h2>
+                    </div>
+                </div>
+                <div class="card" style="padding: 24px; border-radius: 20px;">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Featured</p>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <h2 id="stat-featured" style="font-size: 2.2rem; margin: 0;">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card" style="padding: 0; overflow-x: auto; border-radius: 20px;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 600px;">
+                    <thead style="background: #f8fafc; border-bottom: 1px solid #f1f5f9;">
+                        <tr>
+                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Property Name</th>
+                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Status</th>
+                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Price</th>
+                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Room Type</th>
+                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                        <!-- Dynamically Loaded -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px;">
+                <div style="width: 80px; height: 80px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                    <i data-lucide="folder-open" style="width: 40px; color: #2563eb;"></i>
+                </div>
+                <h3>No Properties Found</h3>
+                <p style="color: #64748b; max-width: 400px; margin: 12px auto 24px;">Start by connecting your Google Sheet or adding sample data to `js/api.js`.</p>
+                <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <i data-lucide="external-link" style="width: 18px;"></i> Open Google Sheets Template
+                </a>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                 <p style="font-size: 0.85rem; color: #64748b;">This is a visual preview of your Admin Portal.<br>To edit properties, please use your <strong>Google Sheet</strong>.</p>
+                 <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="margin-top: 16px;">Open Google Sheets CMS</a>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import StayStudentAPI from './js/api.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const listings = await StayStudentAPI.fetchAllListings();
+            const tableBody = document.getElementById('admin-table-body');
+            const emptyState = document.getElementById('empty-state');
+            const totalStat = document.getElementById('stat-total');
+            const activeStat = document.getElementById('stat-active');
+            const featuredStat = document.getElementById('stat-featured');
+
+            // Update Stats
+            totalStat.innerText = listings.length;
+            activeStat.innerText = listings.filter(l => l.available === 'Yes' || l.available === true).length;
+            featuredStat.innerText = listings.filter(l => l.featured === 'Yes' || l.featured === true).length;
+
+            if (listings.length === 0) {
+                tableBody.parentElement.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tableBody.innerHTML = listings.map(p => `
+                    <tr>
+                        <td style="padding: 20px 24px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="${p.image1}" style="width: 44px; height: 44px; border-radius: 10px; object-fit: cover;">
+                                <div>
+                                    <h4 style="font-size: 0.9rem; margin: 0; color: #0f172a;">${p.title}</h4>
+                                    <p style="font-size: 0.75rem; color: #64748b;">${p.city}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="padding: 20px 24px;">
+                            <span style="background: ${p.available === 'Yes' ? '#dcfce7' : '#fee2e2'}; color: ${p.available === 'Yes' ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 800;">
+                                ${p.available === 'Yes' ? 'ACTIVE' : 'UNAVAILABLE'}
+                            </span>
+                        </td>
+                        <td style="padding: 20px 24px; font-weight: 700; color: #0f172a;">${p.price}</td>
+                        <td style="padding: 20px 24px; color: #64748b; font-size: 0.85rem;">${p.roomType}</td>
+                        <td style="padding: 20px 24px;">
+                            <div style="display: flex; gap: 12px; color: #94a3b8;">
+                                <a href="property.html?id=${p.id}" target="_blank" style="color: inherit;"><i data-lucide="external-link" style="width: 16px;"></i></a>
+                                <i data-lucide="edit-3" style="width: 16px; cursor: pointer;"></i>
+                                <i data-lucide="trash-2" style="width: 16px; cursor: pointer;"></i>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayStudent | Premium Student Accommodation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="glass" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border-bottom: 1px solid #f1f5f9;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #1e3a8a;">
+                <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                </div>
+                UniStay<span style="color: #2563eb;">Elite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 4px;">Home</a></li>
+                <li><a href="listings.html">Listings</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" style="background: #0f172a; color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem;">Admin Portal</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="listings.html" class="btn btn-primary" style="border-radius: 30px; font-weight: 700; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);">Browse Rooms</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero mobile-p-top" style="position: relative; padding: 160px 0 120px; min-height: 80vh; display: flex; align-items: center; background: #f9fbff; overflow: hidden;">
+        <!-- Background Image/Pattern -->
+        <div class="mobile-hide" style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0;">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.15; mask-image: linear-gradient(to left, rgba(0,0,0,1), transparent);">
+        </div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <div style="max-width: 800px;" data-aos="fade-up">
+                <span style="display: inline-block; padding: 6px 12px; background: #eff6ff; color: #2563eb; font-size: 0.7rem; font-weight: 800; border-radius: 6px; letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;">Verified Accommodations</span>
+                <h1 style="font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #0f172a; letter-spacing: -0.04em;">
+                    Find Your Perfect<br><span style="color: #2563eb;">Home Away</span><br>From Home
+                </h1>
+                <p style="font-size: 1.25rem; max-width: 550px; margin-bottom: 48px; color: #64748b; line-height: 1.6;">
+                    Luxury student living simplified. Discover pre-verified properties near your campus with all-inclusive billing and community perks.
+                </p>
+                
+                <div class="mobile-stack" style="display: flex; gap: 12px; background: #ffffff; padding: 12px; border-radius: 20px; box-shadow: 0 30px 60px -12px rgba(0,0,0,0.1); border: 1px solid #f1f5f9; max-width: 600px;">
+                    <div style="flex: 1; position: relative; width: 100%;">
+                        <i data-lucide="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; color: #94a3b8;"></i>
+                        <input type="text" placeholder="Search University or City..." style="width: 100%; padding: 16px 16px 16px 48px; border: none; font-size: 1rem; outline: none;">
+                    </div>
+                    <button class="btn btn-primary" style="padding: 16px 32px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        <i data-lucide="map-pin" style="width: 18px;"></i> Explore Now
+                    </button>
+                </div>
+                
+                <div style="margin-top: 40px; display: flex; align-items: center; gap: 24px;">
+                    <div style="display: flex; -webkit-mask-image: linear-gradient(to right, black 70%, transparent);">
+                        <img src="https://i.pravatar.cc/150?u=1" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff;">
+                        <img src="https://i.pravatar.cc/150?u=2" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff; margin-left: -12px;">
+                        <img src="https://i.pravatar.cc/150?u=3" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff; margin-left: -12px;">
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b; font-weight: 500;">Liked by <span style="color: #0f172a; font-weight: 700;">2,400+</span> students this year</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative Element -->
+        <div class="mobile-hide" style="position: absolute; bottom: 40px; right: 10%; width: 400px; height: 300px; z-index: 1;" data-aos="fade-left">
+             <div style="width: 100%; height: 100%; background: #ffffff; border-radius: 40px; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15); overflow: hidden; transform: rotate(2deg);">
+                 <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=600" style="width: 100%; height: 100%; object-fit: cover;">
+                 <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
+                    <p style="font-weight: 700; font-size: 0.8rem;">Fully Booked in London</p>
+                 </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- Featured Listings -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 50px;">
+                <div data-aos="fade-up">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 12px;">Featured Properties</h2>
+                    <p style="color: var(--text-muted);">Hand-picked top-rated student homes for you.</p>
+                </div>
+                <a href="listings.html" style="color: var(--primary); font-weight: 600;" data-aos="fade-up">View all listings &rarr;</a>
+            </div>
+            
+            <div id="featured-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section-padding" style="background-color: var(--white);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
+                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">Why Choose StayStudent?</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">We take the stress out of finding accommodation, so you can focus on your studies.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                        <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3>Verified Properties</h3>
+                    <p style="color: var(--text-muted); margin-top: 12px;">Every listing on our platform is personally verified by our local experts.</p>
+                </div>
+                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                        <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3>Fast Booking</h3>
+                    <p style="color: var(--text-muted); margin-top: 12px;">Inquiry directly via WhatsApp for instant response and quick viewings.</p>
+                </div>
+                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                        <i data-lucide="credit-card" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3>No Hidden Fees</h3>
+                    <p style="color: var(--text-muted); margin-top: 12px;">Transperant pricing with detailed information on what's included.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
+                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">How It Works</h2>
+                <p style="color: var(--text-muted);">Your journey to the perfect student home in four simple steps.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+                <div style="text-align: center;" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
+                        <i data-lucide="search" style="color: #2563eb; width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.25rem;">Browse</h3>
+                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Explore verified listings near your chosen university campus.</p>
+                </div>
+                <div style="text-align: center;" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
+                        <i data-lucide="message-square" style="color: #2563eb; width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.25rem;">Request</h3>
+                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Book a viewing or inquire via WhatsApp with one click.</p>
+                </div>
+                <div style="text-align: center;" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
+                        <i data-lucide="file-check" style="color: #2563eb; width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.25rem;">Verify</h3>
+                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Submit your documents securely through our digital portal.</p>
+                </div>
+                <div style="text-align: center;" data-aos="fade-up">
+                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
+                        <i data-lucide="key" style="color: #2563eb; width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.25rem;">Move In</h3>
+                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Sign your contract and collect your keys. Welcome home!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise / About Agent Section -->
+    <section class="section-padding" style="background: var(--white); border-top: 1px solid #f1f5f9;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center;">
+                <div data-aos="fade-right">
+                    <div style="position: relative;">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" style="width: 100%; height: 500px; object-fit: cover; border-radius: 40px; box-shadow: var(--shadow-xl);">
+                        <div class="glass" style="position: absolute; bottom: 30px; left: -30px; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: var(--shadow-lg); width: 280px;">
+                             <p style="font-style: italic; color: #0f172a; font-size: 0.95rem; margin-bottom: 12px; line-height: 1.4;">"We don't just find you a room; we find the foundation for your academic success."</p>
+                             <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 32px; height: 2px; background: #2563eb;"></div>
+                                <p style="font-weight: 700; font-size: 0.85rem;">Sarah Jenkins, <span style="color: #64748b; font-weight: 500;">Principal Agent</span></p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <p style="font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">About the Agent</p>
+                    <h2 style="font-size: 2.8rem; margin-bottom: 24px;">Expertise You Can Trust</h2>
+                    <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; margin-bottom: 32px;">
+                        With over 12 years of experience in student housing, UniStay Elite was founded on the principle that students deserve better. We bridge the gap between private landlords and student needs.
+                    </p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div style="display: flex; gap: 20px;">
+                            <div style="width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i data-lucide="check-circle" style="color: #2563eb;"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 4px;">100% Verified Listings</h4>
+                                <p style="color: #64748b; font-size: 0.9rem;">Every property is physically inspected to meet our strict safety and quality standards.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <div style="width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i data-lucide="headphones" style="color: #2563eb;"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 4px;">24/7 Student Support</h4>
+                                <p style="color: #64748b; font-size: 0.9rem;">Our dedicated concierge team is always available for maintenance or emergency requests.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="about.html" class="btn btn-primary" style="margin-top: 40px; border-radius: 30px; padding: 14px 28px;">Learn Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-padding" style="background: var(--accent);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
+                <h2 style="font-size: 2.5rem;">Student Stories</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="card" style="padding: 30px;" data-aos="fade-up">
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <img src="https://i.pravatar.cc/150?u=a1" alt="Student" style="width: 50px; height: 50px; border-radius: 50%;">
+                        <div>
+                            <h4 style="margin: 0;">Sarah Johnson</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">UCL Manchester</span>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: var(--text-muted);">"Found an amazing studio through StayStudent. The WhatsApp support was super fast!"</p>
+                </div>
+                <div class="card" style="padding: 30px;" data-aos="fade-up">
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <img src="https://i.pravatar.cc/150?u=a2" alt="Student" style="width: 50px; height: 50px; border-radius: 50%;">
+                        <div>
+                            <h4 style="margin: 0;">Mark Davies</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">King's College London</span>
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: var(--text-muted);">"No hidden fees and the property was exactly as shown in the photos. Highly recommended."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding" style="background: var(--primary); color: var(--white); text-align: center;">
+        <div class="container" data-aos="fade-up">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to find your new home?</h2>
+            <p style="margin-bottom: 40px; font-size: 1.1rem; opacity: 0.9;">Join thousands of students who found their perfect stay with us.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="listings.html" class="btn" style="background: var(--white); color: var(--primary); padding: 16px 32px;">Browse All Rooms</a>
+                <a href="contact.html" class="btn" style="border: 1px solid var(--white); color: var(--white); padding: 16px 32px;">Contact Agent</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: #ffffff; padding: 80px 0 40px; margin-top: 80px;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; margin-bottom: 60px;">
+            <div>
+                <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #ffffff; margin-bottom: 24px;">
+                    <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    UniStay<span style="color: #2563eb;">Elite</span>
+                </a>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
+                    Your trusted partner in finding the best student accommodation across the UK. Verified properties, simple booking.
+                </p>
+                <div style="display: flex; gap: 16px;">
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="facebook" style="width: 20px;"></i></a>
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="instagram" style="width: 20px;"></i></a>
+                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="twitter" style="width: 20px;"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Quick Links</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li><a href="index.html" style="color: inherit;">Home</a></li>
+                    <li><a href="listings.html" style="color: inherit;">Browse Listings</a></li>
+                    <li><a href="about.html" style="color: inherit;">About Us</a></li>
+                    <li><a href="contact.html" style="color: inherit;">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Support</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li><a href="#" style="color: inherit;">Privacy Policy</a></li>
+                    <li><a href="#" style="color: inherit;">Terms of Service</a></li>
+                    <li><a href="#" style="color: inherit;">Student Guide</a></li>
+                    <li><a href="#" style="color: inherit;">Partner with Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Contact</h4>
+                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mail" style="width: 16px;"></i> bun.otravelservices@gmail.com</li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="phone" style="width: 16px;"></i> +44 7444 543287</li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="message-circle" style="width: 16px;"></i> WhatsApp Inquiry Available</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; color: #64748b; font-size: 0.85rem;">
+            <p>&copy; 2024 UniStay Elite. All rights reserved.</p>
+            <div style="display: flex; gap: 24px;">
+                <a href="login.html" style="color: inherit;">Member Login</a>
+                <a href="#" style="color: inherit;">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module">
+        import StayStudentAPI from './js/api.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const featuredGrid = document.querySelector('#featured-grid');
+            const featured = await StayStudentAPI.getFeaturedListings();
+            
+            if (featuredGrid) {
+                featuredGrid.innerHTML = featured.length > 0 
+                  ? featured.map(p => window.createListingCard(p)).join('')
+                  : '<p style="grid-column: 1/-1; text-align:center;">Coming soon!</p>';
+                  
+                if (window.lucide) window.lucide.createIcons();
+            }
+        });
+    </script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
