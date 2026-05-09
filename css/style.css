@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --secondary: #64748b;
+  --accent: #eff6ff;
+  --background: #f9fbff;
+  --white: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #f1f5f9;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --radius: 24px;
+  --radius-lg: 40px;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: var(--transition);
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  padding: 12px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+/* Navbar */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+nav.scrolled {
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links li a {
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.nav-links li a:hover {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  font-size: 1.5rem;
+}
+
+/* Footer */
+footer {
+  background-color: var(--text-main);
+  color: var(--white);
+  padding: 80px 0 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.footer-desc {
+  color: #94a3b8;
+  max-width: 300px;
+}
+
+.footer-links h4 {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+}
+
+.footer-links ul li {
+  margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+  color: #94a3b8;
+}
+
+.footer-links ul li a:hover {
+  color: var(--white);
+}
+
+.footer-bottom {
+  padding-top: 40px;
+  border-top: 1px solid #334155;
+  text-align: center;
+  color: #64748b;
+}
+
+/* Base Animations */
+[data-aos] {
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lightbox Modal */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  display: none;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  color: white;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% + 120px);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.lightbox-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  pointer-events: auto;
+}
+
+.lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.gallery-item {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery-item:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .lightbox-nav {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .lightbox-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .lightbox-close {
+    top: -50px;
+    right: 10px;
+  }
+}
