@@ -11,6 +11,8 @@ export default defineConfig({
         property: path.resolve(__dirname, 'property.html'),
         about: path.resolve(__dirname, 'about.html'),
         contact: path.resolve(__dirname, 'contact.html'),
+        login: path.resolve(__dirname, 'login.html'),
+        admin: path.resolve(__dirname, 'admin.html'),
       },
     },
   },
