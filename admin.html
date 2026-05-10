@@ -9,67 +9,46 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @media (max-width: 1024px) {
-            #admin-sidebar {
-                width: 80px !important;
-                padding: 24px 12px !important;
-            }
-            #admin-sidebar span, #admin-sidebar p, #admin-sidebar h4, #admin-sidebar nav a span, #admin-sidebar .user-info div {
-                display: none !important;
-            }
-            #admin-sidebar nav a {
-                justify-content: center !important;
-                padding: 12px 0 !important;
-            }
-            #admin-sidebar .logo {
-                justify-content: center !important;
-            }
+            #admin-sidebar { width: 80px !important; padding: 24px 12px !important; }
+            #admin-sidebar span, #admin-sidebar p, #admin-sidebar h4,
+            #admin-sidebar nav a span, #admin-sidebar .user-info div { display: none !important; }
+            #admin-sidebar nav a { justify-content: center !important; padding: 12px 0 !important; }
+            #admin-sidebar .logo { justify-content: center !important; }
         }
-
         @media (max-width: 768px) {
-            #admin-layout {
-                flex-direction: column !important;
-            }
+            #admin-layout { flex-direction: column !important; }
             #admin-sidebar {
-                width: 100% !important;
-                height: auto !important;
-                min-height: auto !important;
-                border-right: none !important;
-                border-bottom: 1px solid #f1f5f9 !important;
-                padding: 16px !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                justify-content: space-between !important;
+                width: 100% !important; height: auto !important; min-height: auto !important;
+                border-right: none !important; border-bottom: 1px solid #f1f5f9 !important;
+                padding: 16px !important; flex-direction: row !important;
+                align-items: center !important; justify-content: space-between !important;
             }
-            #admin-sidebar .logo, #admin-sidebar .user-info, #admin-sidebar nav, #admin-sidebar .sign-out {
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            #admin-sidebar nav ul {
-                flex-direction: row !important;
-                gap: 16px !important;
-            }
-            #admin-sidebar .user-info, #admin-sidebar .sign-out {
-                display: none !important;
-            }
-            #admin-main {
-                padding: 24px 16px !important;
-            }
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 20px !important;
-            }
-            header > div:last-child {
-                width: 100% !important;
-            }
-            header input {
-                width: 100% !important;
-            }
+            #admin-sidebar .logo, #admin-sidebar .user-info,
+            #admin-sidebar nav, #admin-sidebar .sign-out { margin: 0 !important; padding: 0 !important; }
+            #admin-sidebar nav ul { flex-direction: row !important; gap: 16px !important; }
+            #admin-sidebar .user-info, #admin-sidebar .sign-out { display: none !important; }
+            #admin-main { padding: 24px 16px !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
+            header > div:last-child { width: 100% !important; }
+            header input { width: 100% !important; }
         }
     </style>
 </head>
 <body style="background: #f8fafc;">
-    
+
+    <!-- ── Session Guard (runs before anything renders) ──────────────────── -->
+    <script>
+        (function() {
+            function isLoggedIn() {
+                try { if (localStorage.getItem('admin_logged_in') === 'true') return true; } catch(e) {}
+                return document.cookie.split(';').some(function(c) {
+                    return c.trim().startsWith('admin_logged_in=true');
+                });
+            }
+            if (!isLoggedIn()) { window.location.replace('login.html'); }
+        })();
+    </script>
+
     <div id="admin-layout" style="display: flex; min-height: 100vh;">
         <!-- Sidebar -->
         <aside id="admin-sidebar" style="width: 260px; background: #ffffff; border-right: 1px solid #f1f5f9; padding: 32px 20px; display: flex; flex-direction: column;">
@@ -98,7 +77,9 @@
             </nav>
 
             <div class="sign-out" style="margin-top: auto; padding-top: 40px;">
-                <a href="#" id="logout-btn" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;"><i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span></a>
+                <a href="#" id="logout-btn" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;">
+                    <i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span>
+                </a>
             </div>
         </aside>
 
@@ -124,21 +105,15 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 40px;">
                 <div class="card" style="padding: 24px; border-radius: 20px;">
                     <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Total Listings</p>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <h2 id="stat-total" style="font-size: 2.2rem; margin: 0;">0</h2>
-                    </div>
+                    <h2 id="stat-total" style="font-size: 2.2rem; margin: 0;">0</h2>
                 </div>
                 <div class="card" style="padding: 24px; border-radius: 20px;">
                     <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Active Listings</p>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <h2 id="stat-active" style="font-size: 2.2rem; margin: 0;">0</h2>
-                    </div>
+                    <h2 id="stat-active" style="font-size: 2.2rem; margin: 0;">0</h2>
                 </div>
                 <div class="card" style="padding: 24px; border-radius: 20px;">
                     <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Featured</p>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <h2 id="stat-featured" style="font-size: 2.2rem; margin: 0;">0</h2>
-                    </div>
+                    <h2 id="stat-featured" style="font-size: 2.2rem; margin: 0;">0</h2>
                 </div>
             </div>
 
@@ -154,9 +129,7 @@
                             <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-table-body">
-                        <!-- Dynamically Loaded -->
-                    </tbody>
+                    <tbody id="admin-table-body"></tbody>
                 </table>
             </div>
 
@@ -165,15 +138,15 @@
                     <i data-lucide="folder-open" style="width: 40px; color: #2563eb;"></i>
                 </div>
                 <h3>No Properties Found</h3>
-                <p style="color: #64748b; max-width: 400px; margin: 12px auto 24px;">Start by connecting your Google Sheet or adding sample data to `js/api.js`.</p>
+                <p style="color: #64748b; max-width: 400px; margin: 12px auto 24px;">Connect your Google Sheet or add sample data to <code>js/api.js</code>.</p>
                 <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
                     <i data-lucide="external-link" style="width: 18px;"></i> Open Google Sheets Template
                 </a>
             </div>
 
             <div style="margin-top: 40px; text-align: center;">
-                 <p style="font-size: 0.85rem; color: #64748b;">This is a visual preview of your Admin Portal.<br>To edit properties, please use your <strong>Google Sheet</strong>.</p>
-                 <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="margin-top: 16px;">Open Google Sheets CMS</a>
+                <p style="font-size: 0.85rem; color: #64748b;">To edit properties, please use your <strong>Google Sheet</strong>.</p>
+                <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="margin-top: 16px;">Open Google Sheets CMS</a>
             </div>
         </main>
     </div>
@@ -181,26 +154,36 @@
     <script type="module">
         import StayStudentAPI from './js/api.js';
 
-        // Session Check
-        if (localStorage.getItem('admin_logged_in') !== 'true') {
-            window.location.href = 'login.html';
+        // ── Logout helper ─────────────────────────────────────────────────────
+        function clearSession() {
+            try { localStorage.removeItem('admin_logged_in'); localStorage.removeItem('admin_user'); } catch(e) {}
+            // Expire cookie
+            document.cookie = 'admin_logged_in=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'admin_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const listings = await StayStudentAPI.fetchAllListings();
-            const tableBody = document.getElementById('admin-table-body');
-            const emptyState = document.getElementById('empty-state');
-            const totalStat = document.getElementById('stat-total');
-            const activeStat = document.getElementById('stat-active');
-            const featuredStat = document.getElementById('stat-featured');
+        // ── Logout button ─────────────────────────────────────────────────────
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearSession();
+                window.location.href = 'login.html';
+            });
+        }
 
-            // Update Stats
-            totalStat.innerText = listings.length;
-            activeStat.innerText = listings.filter(l => l.available === 'Yes' || l.available === true).length;
-            featuredStat.innerText = listings.filter(l => l.featured === 'Yes' || l.featured === true).length;
+        // ── Load listings ─────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', async () => {
+            const listings    = await StayStudentAPI.fetchAllListings();
+            const tableBody   = document.getElementById('admin-table-body');
+            const emptyState  = document.getElementById('empty-state');
+
+            document.getElementById('stat-total').innerText   = listings.length;
+            document.getElementById('stat-active').innerText  = listings.filter(l => l.available === 'Yes' || l.available === true).length;
+            document.getElementById('stat-featured').innerText = listings.filter(l => l.featured  === 'Yes' || l.featured  === true).length;
 
             if (listings.length === 0) {
-                tableBody.parentElement.style.display = 'none';
+                tableBody.closest('.card').style.display = 'none';
                 emptyState.style.display = 'block';
             } else {
                 tableBody.innerHTML = listings.map(p => `
@@ -231,19 +214,8 @@
                     </tr>
                 `).join('');
             }
-            
-            if (window.lucide) window.lucide.createIcons();
 
-            // Logout Logic
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem('admin_logged_in');
-                    localStorage.removeItem('admin_user');
-                    window.location.href = 'login.html';
-                });
-            }
+            if (window.lucide) window.lucide.createIcons();
         });
     </script>
 </body>
