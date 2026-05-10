@@ -1,222 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | UniStay Elite</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @media (max-width: 1024px) {
-            #admin-sidebar { width: 80px !important; padding: 24px 12px !important; }
-            #admin-sidebar span, #admin-sidebar p, #admin-sidebar h4,
-            #admin-sidebar nav a span, #admin-sidebar .user-info div { display: none !important; }
-            #admin-sidebar nav a { justify-content: center !important; padding: 12px 0 !important; }
-            #admin-sidebar .logo { justify-content: center !important; }
-        }
-        @media (max-width: 768px) {
-            #admin-layout { flex-direction: column !important; }
-            #admin-sidebar {
-                width: 100% !important; height: auto !important; min-height: auto !important;
-                border-right: none !important; border-bottom: 1px solid #f1f5f9 !important;
-                padding: 16px !important; flex-direction: row !important;
-                align-items: center !important; justify-content: space-between !important;
-            }
-            #admin-sidebar .logo, #admin-sidebar .user-info,
-            #admin-sidebar nav, #admin-sidebar .sign-out { margin: 0 !important; padding: 0 !important; }
-            #admin-sidebar nav ul { flex-direction: row !important; gap: 16px !important; }
-            #admin-sidebar .user-info, #admin-sidebar .sign-out { display: none !important; }
-            #admin-main { padding: 24px 16px !important; }
-            header { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
-            header > div:last-child { width: 100% !important; }
-            header input { width: 100% !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - StayStudent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #F4F3ED; --dark: #16191F; --mid: #444A55;
+    --accent: #E05C2A; --white: #fff; --border: #E4E2D9;
+    --font-head: 'Syne', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+  body { font-family: var(--font-body); background: var(--paper); color: var(--dark); min-height: 100vh; }
+
+  /* ── LOGIN ─────────────────────────────────── */
+  #login-screen {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--dark);
+  }
+  .login-box {
+    background: #1e2229; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+    padding: 48px 40px; width: 100%; max-width: 400px; text-align: center;
+  }
+  .login-box h1 { font-family: var(--font-head); font-size: 1.8rem; color: var(--white); margin-bottom: 8px; }
+  .login-box p { color: #6b7280; font-size: 0.9rem; margin-bottom: 32px; }
+  .login-box input {
+    width: 100%; padding: 13px 16px; border-radius: 10px; margin-bottom: 14px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white); font-family: var(--font-body); font-size: 0.95rem; outline: none;
+  }
+  .login-box input::placeholder { color: #555c6a; }
+  .login-box input:focus { border-color: var(--accent); }
+  #login-error { display: none; color: #f87171; font-size: 0.85rem; margin-bottom: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all 0.2s; }
+  .btn-accent { background: var(--accent); color: #fff; width: 100%; justify-content: center; border-radius: 10px; padding: 13px; font-size: 1rem; }
+  .btn-accent:hover { background: #c9501f; }
+  .btn-sm { padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; border: none; cursor: pointer; }
+
+  /* ── DASHBOARD ─────────────────────────────── */
+  #dashboard { display: none; }
+  .topbar {
+    background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px;
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .topbar-logo { font-family: var(--font-head); font-size: 1.2rem; color: var(--dark); }
+  .topbar-logo span { color: var(--accent); }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .topbar-user { font-size: 0.85rem; color: var(--mid); }
+  #logout-btn { background: none; border: 1.5px solid var(--border); color: var(--mid); padding: 6px 14px; border-radius: 100px; font-family: var(--font-body); font-size: 0.82rem; cursor: pointer; }
+  #logout-btn:hover { border-color: var(--dark); color: var(--dark); }
+
+  .dash-body { padding: 40px 32px; max-width: 1100px; margin: 0 auto; }
+  .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+  .dash-header h1 { font-family: var(--font-head); font-size: 1.8rem; }
+  .dash-header p { color: var(--mid); font-size: 0.9rem; margin-top: 4px; }
+
+  /* Stats row */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; }
+  .stat-card .num { font-family: var(--font-head); font-size: 2rem; color: var(--dark); }
+  .stat-card .lbl { font-size: 0.78rem; color: var(--mid); margin-top: 2px; }
+
+  /* Listings table */
+  .table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  thead { background: #fafafa; border-bottom: 1px solid var(--border); }
+  th { padding: 14px 20px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; text-align: left; }
+  td { padding: 16px 20px; font-size: 0.88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pill-green { background: #dcfce7; color: #166534; }
+  .pill-grey { background: #f1f5f9; color: #6b7280; }
+  .pill-orange { background: #fef3c7; color: #92400e; }
+  .actions { display: flex; gap: 8px; }
+  .btn-edit { background: #eff6ff; color: #1d4ed8; }
+  .btn-del { background: #fee2e2; color: #991b1b; }
+  .btn-wa-sm { background: #dcfce7; color: #166534; }
+
+  /* Add listing form */
+  .panel { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 32px; }
+  .panel h2 { font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .field label { display: block; font-size: 0.73rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
+    font-family: var(--font-body); font-size: 0.9rem; outline: none; color: var(--dark); background: var(--white);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .field { margin-bottom: 14px; }
+  .panel-actions { display: flex; gap: 10px; margin-top: 8px; }
+  .btn-primary-sm { background: var(--accent); color: #fff; padding: 10px 22px; border-radius: 8px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
+  .btn-primary-sm:hover { background: #c9501f; }
+  .btn-cancel { background: var(--border); color: var(--mid); padding: 10px 22px; border-radius: 8px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
+
+  .overflow-x { overflow-x: auto; }
+  @media (max-width: 700px) {
+    .dash-body { padding: 24px 16px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .topbar { padding: 0 16px; }
+  }
+</style>
 </head>
-<body style="background: #f8fafc;">
+<body>
 
-    <!-- ── Session Guard (runs before anything renders) ──────────────────── -->
-    <script>
-        (function() {
-            function isLoggedIn() {
-                try { if (localStorage.getItem('admin_logged_in') === 'true') return true; } catch(e) {}
-                return document.cookie.split(';').some(function(c) {
-                    return c.trim().startsWith('admin_logged_in=true');
-                });
-            }
-            if (!isLoggedIn()) { window.location.replace('login.html'); }
-        })();
-    </script>
+<!-- ── LOGIN ──────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>Stay<span style="color:var(--accent)">Student</span></h1>
+    <p>Admin access only</p>
+    <input type="email" id="login-email" placeholder="Email address" value="agent@staystudent.com">
+    <input type="password" id="login-pw" placeholder="Password">
+    <div id="login-error">Wrong email or password.</div>
+    <button class="btn btn-accent" onclick="doLogin()">Sign In</button>
+    <p style="margin-top: 20px; font-size: 0.78rem; color: #374151;">
+      <a href="index.html" style="color: #6b7280;">Back to main site</a>
+    </p>
+  </div>
+</div>
 
-    <div id="admin-layout" style="display: flex; min-height: 100vh;">
-        <!-- Sidebar -->
-        <aside id="admin-sidebar" style="width: 260px; background: #ffffff; border-right: 1px solid #f1f5f9; padding: 32px 20px; display: flex; flex-direction: column;">
-            <div class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; margin-bottom: 40px; color: #1e3a8a;">
-                <div style="width: 28px; height: 28px; background: #2563eb; color: #ffffff; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <i data-lucide="home" style="width: 16px; height: 16px;"></i>
-                </div>
-                <span>UniStay<span style="color: #2563eb;">Elite</span></span>
-            </div>
+<!-- ── DASHBOARD ──────────────────────────────────────────────────── -->
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">Stay<span>Student</span> <span style="font-family: var(--font-body); font-size: 0.78rem; color: var(--mid); font-weight: 500; margin-left: 8px;">Admin</span></div>
+    <div class="topbar-right">
+      <span class="topbar-user" id="topbar-user"></span>
+      <button id="logout-btn" onclick="doLogout()">Sign out</button>
+    </div>
+  </div>
 
-            <div class="user-info" style="margin-bottom: 32px; padding: 16px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-                <img src="https://i.pravatar.cc/100?u=admin" style="width: 40px; height: 40px; border-radius: 50%;">
-                <div>
-                    <h4 style="font-size: 0.85rem; margin: 0;">Agent Admin</h4>
-                    <p style="font-size: 0.7rem; color: #64748b;">Property Manager</p>
-                </div>
-            </div>
-
-            <nav>
-                <ul style="display: flex; flex-direction: column; gap: 8px; list-style: none; padding: 0; margin: 0;">
-                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: #eff6ff; color: #2563eb; font-weight: 600; text-decoration: none;"><i data-lucide="layout-dashboard" style="width: 18px;"></i> <span>Dashboard</span></a></li>
-                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="list" style="width: 18px;"></i> <span>Manage Listings</span></a></li>
-                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="message-square" style="width: 18px;"></i> <span>Inquiries</span></a></li>
-                    <li><a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #64748b; text-decoration: none;"><i data-lucide="settings" style="width: 18px;"></i> <span>Settings</span></a></li>
-                </ul>
-            </nav>
-
-            <div class="sign-out" style="margin-top: auto; padding-top: 40px;">
-                <a href="#" id="logout-btn" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: #ef4444; font-weight: 600; text-decoration: none;">
-                    <i data-lucide="log-out" style="width: 18px;"></i> <span>Sign Out</span>
-                </a>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main id="admin-main" style="flex: 1; padding: 40px 60px; min-width: 0;">
-            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                <div>
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Management Overview</p>
-                    <h1 style="font-size: 2rem;">Manage Listings</h1>
-                </div>
-                <div style="display: flex; gap: 16px;">
-                    <div style="position: relative;">
-                        <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; color: #94a3b8;"></i>
-                        <input type="text" placeholder="Search properties..." style="padding: 10px 12px 10px 36px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.9rem; width: 250px;">
-                    </div>
-                    <button class="btn btn-outline" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 700;">
-                        <i data-lucide="filter" style="width: 16px;"></i> Filter
-                    </button>
-                </div>
-            </header>
-
-            <!-- Stats -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 40px;">
-                <div class="card" style="padding: 24px; border-radius: 20px;">
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Total Listings</p>
-                    <h2 id="stat-total" style="font-size: 2.2rem; margin: 0;">0</h2>
-                </div>
-                <div class="card" style="padding: 24px; border-radius: 20px;">
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Active Listings</p>
-                    <h2 id="stat-active" style="font-size: 2.2rem; margin: 0;">0</h2>
-                </div>
-                <div class="card" style="padding: 24px; border-radius: 20px;">
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Featured</p>
-                    <h2 id="stat-featured" style="font-size: 2.2rem; margin: 0;">0</h2>
-                </div>
-            </div>
-
-            <!-- Table -->
-            <div class="card" style="padding: 0; overflow-x: auto; border-radius: 20px;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 600px;">
-                    <thead style="background: #f8fafc; border-bottom: 1px solid #f1f5f9;">
-                        <tr>
-                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Property Name</th>
-                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Status</th>
-                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Price</th>
-                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Room Type</th>
-                            <th style="padding: 16px 24px; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body"></tbody>
-                </table>
-            </div>
-
-            <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px;">
-                <div style="width: 80px; height: 80px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                    <i data-lucide="folder-open" style="width: 40px; color: #2563eb;"></i>
-                </div>
-                <h3>No Properties Found</h3>
-                <p style="color: #64748b; max-width: 400px; margin: 12px auto 24px;">Connect your Google Sheet or add sample data to <code>js/api.js</code>.</p>
-                <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
-                    <i data-lucide="external-link" style="width: 18px;"></i> Open Google Sheets Template
-                </a>
-            </div>
-
-            <div style="margin-top: 40px; text-align: center;">
-                <p style="font-size: 0.85rem; color: #64748b;">To edit properties, please use your <strong>Google Sheet</strong>.</p>
-                <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn btn-primary" style="margin-top: 16px;">Open Google Sheets CMS</a>
-            </div>
-        </main>
+  <div class="dash-body">
+    <div class="dash-header">
+      <div>
+        <h1>Listings</h1>
+        <p>Manage the rooms shown on your website.</p>
+      </div>
+      <button class="btn-primary-sm" onclick="showAddForm()">+ Add New Listing</button>
     </div>
 
-    <script type="module">
-        import StayStudentAPI from './js/api.js';
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num" id="s-total">0</div>
+        <div class="lbl">Total listings</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="s-available">0</div>
+        <div class="lbl">Available now</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="s-booked">0</div>
+        <div class="lbl">Booked / Coming soon</div>
+      </div>
+    </div>
 
-        // ── Logout helper ─────────────────────────────────────────────────────
-        function clearSession() {
-            try { localStorage.removeItem('admin_logged_in'); localStorage.removeItem('admin_user'); } catch(e) {}
-            // Expire cookie
-            document.cookie = 'admin_logged_in=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'admin_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        }
+    <!-- Add/Edit Form (hidden by default) -->
+    <div class="panel" id="add-panel" style="display:none;">
+      <h2 id="panel-title">Add New Listing</h2>
+      <input type="hidden" id="edit-id">
+      <div class="grid-2">
+        <div class="field"><label>Property Title *</label><input type="text" id="f-title" placeholder="e.g. Bright En-suite Near MMU"></div>
+        <div class="field"><label>City *</label>
+          <select id="f-city">
+            <option>Manchester</option><option>London</option><option>Birmingham</option>
+            <option>Liverpool</option><option>Leeds</option><option>Sheffield</option>
+            <option>Bristol</option><option>Newcastle</option><option>Coventry</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="field"><label>Price (e.g. £165/pw) *</label><input type="text" id="f-price" placeholder="£165/pw"></div>
+        <div class="field"><label>Room Type *</label>
+          <select id="f-type">
+            <option>En-suite</option><option>Studio</option><option>House Share</option><option>Apartment</option>
+          </select>
+        </div>
+        <div class="field"><label>Status *</label>
+          <select id="f-status">
+            <option value="available">Available</option>
+            <option value="coming_soon">Coming Soon</option>
+            <option value="booked">Booked</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>Image URL (optional)</label><input type="url" id="f-img" placeholder="https://..."></div>
+        <div class="field"><label>Features (comma separated)</label><input type="text" id="f-features" placeholder="Bills Inc., WiFi, En-suite"></div>
+      </div>
+      <div class="field"><label>Notes / Description</label>
+        <textarea id="f-notes" rows="2" placeholder="Any extra details..."></textarea>
+      </div>
+      <div class="panel-actions">
+        <button class="btn-primary-sm" onclick="saveListing()">Save Listing</button>
+        <button class="btn-cancel" onclick="hideAddForm()">Cancel</button>
+      </div>
+    </div>
 
-        // ── Logout button ─────────────────────────────────────────────────────
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                clearSession();
-                window.location.href = 'login.html';
-            });
-        }
+    <!-- Table -->
+    <div class="table-wrap overflow-x">
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>City</th>
+            <th>Price</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="listings-tbody">
+          <tr id="empty-row"><td colspan="6" style="text-align:center; padding: 40px; color: var(--mid);">No listings yet. Add your first one above.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        // ── Load listings ─────────────────────────────────────────────────────
-        document.addEventListener('DOMContentLoaded', async () => {
-            const listings    = await StayStudentAPI.fetchAllListings();
-            const tableBody   = document.getElementById('admin-table-body');
-            const emptyState  = document.getElementById('empty-state');
+    <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; color: var(--mid); font-size: 0.82rem;">
+      <p>Changes are saved in your browser. To update the main site listings, edit the HTML cards in <code>index.html</code>.</p>
+      <p style="margin-top: 8px;"><a href="index.html" style="color: var(--accent);">View main site</a></p>
+    </div>
+  </div>
+</div>
 
-            document.getElementById('stat-total').innerText   = listings.length;
-            document.getElementById('stat-active').innerText  = listings.filter(l => l.available === 'Yes' || l.available === true).length;
-            document.getElementById('stat-featured').innerText = listings.filter(l => l.featured  === 'Yes' || l.featured  === true).length;
+<script>
+  // ── Config ──────────────────────────────────────────────────────
+  const ADMIN_EMAIL = 'agent@staystudent.com';
+  const ADMIN_PASS  = 'Precious@@@2026';
+  const STORAGE_KEY = 'ss_listings';
 
-            if (listings.length === 0) {
-                tableBody.closest('.card').style.display = 'none';
-                emptyState.style.display = 'block';
-            } else {
-                tableBody.innerHTML = listings.map(p => `
-                    <tr>
-                        <td style="padding: 20px 24px;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <img src="${p.image1}" style="width: 44px; height: 44px; border-radius: 10px; object-fit: cover;">
-                                <div>
-                                    <h4 style="font-size: 0.9rem; margin: 0; color: #0f172a;">${p.title}</h4>
-                                    <p style="font-size: 0.75rem; color: #64748b;">${p.city}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td style="padding: 20px 24px;">
-                            <span style="background: ${p.available === 'Yes' ? '#dcfce7' : '#fee2e2'}; color: ${p.available === 'Yes' ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 800;">
-                                ${p.available === 'Yes' ? 'ACTIVE' : 'UNAVAILABLE'}
-                            </span>
-                        </td>
-                        <td style="padding: 20px 24px; font-weight: 700; color: #0f172a;">${p.price}</td>
-                        <td style="padding: 20px 24px; color: #64748b; font-size: 0.85rem;">${p.roomType}</td>
-                        <td style="padding: 20px 24px;">
-                            <div style="display: flex; gap: 12px; color: #94a3b8;">
-                                <a href="property.html?id=${p.id}" target="_blank" style="color: inherit;"><i data-lucide="external-link" style="width: 16px;"></i></a>
-                                <i data-lucide="edit-3" style="width: 16px; cursor: pointer;"></i>
-                                <i data-lucide="trash-2" style="width: 16px; cursor: pointer;"></i>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-            }
+  // ── Session helpers ──────────────────────────────────────────────
+  function setSession(email) {
+    try { localStorage.setItem('ss_admin', 'true'); } catch(e) {}
+    document.cookie = 'ss_admin=true; path=/; SameSite=Lax; max-age=86400';
+  }
+  function clearSession() {
+    try { localStorage.removeItem('ss_admin'); } catch(e) {}
+    document.cookie = 'ss_admin=; path=/; max-age=0';
+  }
+  function isLoggedIn() {
+    try { if (localStorage.getItem('ss_admin') === 'true') return true; } catch(e) {}
+    return document.cookie.split(';').some(c => c.trim().startsWith('ss_admin=true'));
+  }
 
-            if (window.lucide) window.lucide.createIcons();
-        });
-    </script>
+  // ── Login / logout ───────────────────────────────────────────────
+  function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pw    = document.getElementById('login-pw').value;
+    const err   = document.getElementById('login-error');
+    err.style.display = 'none';
+    if (email === ADMIN_EMAIL && pw === ADMIN_PASS) {
+      setSession(email);
+      showDashboard(email);
+    } else {
+      err.style.display = 'block';
+    }
+  }
+  function doLogout() {
+    clearSession();
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+  }
+  document.getElementById('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  // ── Show/hide ─────────────────────────────────────────────────────
+  function showDashboard(email) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('topbar-user').textContent = email || ADMIN_EMAIL;
+    renderTable();
+  }
+
+  // ── Data (localStorage) ──────────────────────────────────────────
+  function getListings() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; }
+  }
+  function saveListings(data) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  // ── Render table ─────────────────────────────────────────────────
+  function renderTable() {
+    const data   = getListings();
+    const tbody  = document.getElementById('listings-tbody');
+    const empty  = document.getElementById('empty-row');
+
+    document.getElementById('s-total').textContent     = data.length;
+    document.getElementById('s-available').textContent = data.filter(l => l.status === 'available').length;
+    document.getElementById('s-booked').textContent    = data.filter(l => l.status !== 'available').length;
+
+    if (data.length === 0) { tbody.innerHTML = ''; tbody.appendChild(empty); empty.style.display = ''; return; }
+
+    tbody.innerHTML = data.map((l, i) => {
+      const pillClass = l.status === 'available' ? 'pill-green' : l.status === 'coming_soon' ? 'pill-orange' : 'pill-grey';
+      const pillText  = l.status === 'available' ? 'Available' : l.status === 'coming_soon' ? 'Coming Soon' : 'Booked';
+      const waText    = encodeURIComponent(`Hello, I'm interested in ${l.title} in ${l.city}.`);
+      return `
+        <tr>
+          <td style="font-weight:600;">${l.title}</td>
+          <td>${l.city}</td>
+          <td style="font-weight:700;">${l.price}</td>
+          <td>${l.type}</td>
+          <td><span class="pill ${pillClass}">${pillText}</span></td>
+          <td>
+            <div class="actions">
+              <button class="btn-sm btn-edit" onclick="editListing(${i})">Edit</button>
+              <button class="btn-sm btn-del"  onclick="deleteListing(${i})">Delete</button>
+              <a class="btn-sm btn-wa-sm" href="https://wa.me/447444543287?text=${waText}" target="_blank">WA</a>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ── Add / edit form ───────────────────────────────────────────────
+  function showAddForm() {
+    document.getElementById('panel-title').textContent = 'Add New Listing';
+    document.getElementById('edit-id').value = '';
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-city').value = 'Manchester';
+    document.getElementById('f-price').value = '';
+    document.getElementById('f-type').value = 'En-suite';
+    document.getElementById('f-status').value = 'available';
+    document.getElementById('f-img').value = '';
+    document.getElementById('f-features').value = '';
+    document.getElementById('f-notes').value = '';
+    document.getElementById('add-panel').style.display = 'block';
+    document.getElementById('add-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+  function hideAddForm() {
+    document.getElementById('add-panel').style.display = 'none';
+  }
+  function editListing(i) {
+    const l = getListings()[i];
+    document.getElementById('panel-title').textContent = 'Edit Listing';
+    document.getElementById('edit-id').value = i;
+    document.getElementById('f-title').value    = l.title;
+    document.getElementById('f-city').value     = l.city;
+    document.getElementById('f-price').value    = l.price;
+    document.getElementById('f-type').value     = l.type;
+    document.getElementById('f-status').value   = l.status;
+    document.getElementById('f-img').value      = l.img || '';
+    document.getElementById('f-features').value = l.features || '';
+    document.getElementById('f-notes').value    = l.notes || '';
+    document.getElementById('add-panel').style.display = 'block';
+    document.getElementById('add-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+  function saveListing() {
+    const title = document.getElementById('f-title').value.trim();
+    const price = document.getElementById('f-price').value.trim();
+    if (!title || !price) { alert('Title and price are required.'); return; }
+
+    const listing = {
+      title,
+      city:     document.getElementById('f-city').value,
+      price,
+      type:     document.getElementById('f-type').value,
+      status:   document.getElementById('f-status').value,
+      img:      document.getElementById('f-img').value.trim(),
+      features: document.getElementById('f-features').value.trim(),
+      notes:    document.getElementById('f-notes').value.trim(),
+    };
+
+    const data    = getListings();
+    const editId  = document.getElementById('edit-id').value;
+    if (editId !== '') {
+      data[parseInt(editId)] = listing;
+    } else {
+      data.push(listing);
+    }
+    saveListings(data);
+    hideAddForm();
+    renderTable();
+  }
+  function deleteListing(i) {
+    if (!confirm('Delete this listing?')) return;
+    const data = getListings();
+    data.splice(i, 1);
+    saveListings(data);
+    renderTable();
+  }
+
+  // ── Boot ─────────────────────────────────────────────────────────
+  if (isLoggedIn()) {
+    showDashboard();
+  }
+</script>
 </body>
 </html>
