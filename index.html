@@ -1,352 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayStudent | Premium Student Accommodation</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayStudent - UK Student Accommodation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #F4F3ED;
+    --dark:  #16191F;
+    --mid:   #444A55;
+    --accent:#E05C2A;
+    --accent-light: #FDE8DC;
+    --white: #FFFFFF;
+    --card:  #FFFFFF;
+    --border:#E4E2D9;
+    --radius: 16px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--paper); color: var(--dark); line-height: 1.6; }
+
+  /* ── NAV ─────────────────────────────────────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+    background: rgba(244,243,237,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-head); font-size: 1.3rem; color: var(--dark); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-actions { display: flex; gap: 12px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all 0.2s; }
+  .btn-ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--dark); }
+  .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(224,92,42,0.3); }
+  .btn-accent:hover { background: #c9501f; transform: translateY(-1px); }
+  .btn-wa { background: #25D366; color: #fff; box-shadow: 0 4px 16px rgba(37,211,102,0.3); }
+  .btn-wa:hover { background: #1db755; transform: translateY(-1px); }
+  .btn-dark { background: var(--dark); color: #fff; }
+  .btn-dark:hover { background: #2a2f3a; transform: translateY(-1px); }
+
+  /* ── HERO ────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    background: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -80px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(224,92,42,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 24px; }
+  .hero h1 { font-family: var(--font-head); font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1.07; color: var(--dark); margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 1.05rem; color: var(--mid); max-width: 480px; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 32px; margin-top: 48px; }
+  .stat-num { font-family: var(--font-head); font-size: 1.8rem; color: var(--dark); }
+  .stat-label { font-size: 0.8rem; color: var(--mid); }
+  .hero-img { position: relative; }
+  .hero-img img { width: 100%; height: 480px; object-fit: cover; border-radius: 24px; }
+  .hero-badge {
+    position: absolute; bottom: 28px; left: -20px;
+    background: var(--white); padding: 16px 20px; border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .badge-dot { width: 10px; height: 10px; background: #25D366; border-radius: 50%; flex-shrink: 0; }
+  .badge-text { font-size: 0.82rem; font-weight: 600; color: var(--dark); }
+  .badge-sub { font-size: 0.72rem; color: var(--mid); }
+
+  /* ── SECTION COMMONS ─────────────────────────────────────────── */
+  .section { padding: 100px 5%; }
+  .section-dark { background: var(--dark); color: var(--white); padding: 100px 5%; }
+  .section-center { text-align: center; }
+  .section-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+  .section-dark .section-tag { background: rgba(224,92,42,0.2); }
+  h2.section-title { font-family: var(--font-head); font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 16px; }
+  .section-sub { color: var(--mid); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+  .section-dark .section-sub { color: #9aa0af; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ── HOW IT WORKS ────────────────────────────────────────────── */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+  .step { text-align: center; }
+  .step-num { width: 52px; height: 52px; background: var(--accent-light); color: var(--accent); border-radius: 50%; font-family: var(--font-head); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .step h3 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 8px; }
+  .step p { font-size: 0.9rem; color: var(--mid); }
+
+  /* ── LISTINGS ────────────────────────────────────────────────── */
+  .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 56px; }
+  .listing-card { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; }
+  .listing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
+  .card-img { position: relative; height: 210px; overflow: hidden; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .listing-card:hover .card-img img { transform: scale(1.04); }
+  .card-badge { position: absolute; top: 12px; left: 12px; background: #16a34a; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+  .card-badge.unavailable { background: #6b7280; }
+  .card-price { position: absolute; bottom: 12px; right: 12px; background: rgba(22,25,31,0.85); color: #fff; font-family: var(--font-head); font-size: 1rem; padding: 6px 14px; border-radius: 8px; backdrop-filter: blur(6px); }
+  .card-body { padding: 20px; }
+  .card-city { font-size: 0.75rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .card-title { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 8px; }
+  .card-features { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .feature-pill { background: var(--paper); color: var(--mid); font-size: 0.73rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border); }
+  .card-footer { display: flex; gap: 10px; }
+  .card-footer .btn { flex: 1; justify-content: center; font-size: 0.82rem; padding: 9px 12px; border-radius: 10px; }
+
+  /* ── FORM SECTION ────────────────────────────────────────────── */
+  .form-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: start; margin-top: 60px; }
+  .form-info h3 { font-family: var(--font-head); font-size: 1.6rem; color: var(--white); margin-bottom: 16px; }
+  .form-info p { color: #9aa0af; font-size: 0.95rem; line-height: 1.7; margin-bottom: 32px; }
+  .contact-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .contact-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-label { font-size: 0.72rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; }
+  .contact-val { font-size: 0.95rem; color: var(--white); font-weight: 500; }
+  .form-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 20px; }
+  .field label { display: block; font-size: 0.78rem; font-weight: 600; color: #9aa0af; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 13px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white); font-family: var(--font-body); font-size: 0.95rem;
+    outline: none; transition: border-color 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); }
+  .field input::placeholder, .field textarea::placeholder { color: #555c6a; }
+  .field select option { background: #222; color: #fff; }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .form-submit { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+
+  /* ── FOOTER ──────────────────────────────────────────────────── */
+  footer { background: #0e1115; color: #6b7280; padding: 40px 5%; text-align: center; font-size: 0.88rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── SUCCESS MESSAGE ─────────────────────────────────────────── */
+  #form-success { display: none; background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.3); color: #25D366; padding: 16px 20px; border-radius: 10px; font-size: 0.92rem; font-weight: 600; text-align: center; margin-top: 16px; }
+
+  /* ── MOBILE ──────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-img { display: none; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+    .form-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-actions .btn-ghost { display: none; }
+  }
+  @media (max-width: 600px) {
+    .section, .section-dark { padding: 70px 5%; }
+    .hero { padding: 100px 5% 60px; }
+    .hero-stats { gap: 20px; flex-wrap: wrap; }
+    .form-card { padding: 24px; }
+    .listings-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── FADE IN ─────────────────────────────────────────────────── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="glass" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border-bottom: 1px solid #f1f5f9;">
-        <div class="container nav-container">
-            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #1e3a8a;">
-                <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
-                </div>
-                UniStay<span style="color: #2563eb;">Elite</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html" style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 4px;">Home</a></li>
-                <li><a href="listings.html">Listings</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html" style="background: #0f172a; color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem;">Admin Portal</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="listings.html" class="btn btn-primary" style="border-radius: 30px; font-weight: 700; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);">Browse Rooms</a>
-            </div>
-            <button class="mobile-menu-btn">
-                <i data-lucide="menu"></i>
-            </button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero mobile-p-top" style="position: relative; padding: 160px 0 120px; min-height: 80vh; display: flex; align-items: center; background: #f9fbff; overflow: hidden;">
-        <!-- Background Image/Pattern -->
-        <div class="mobile-hide" style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0;">
-            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.15; mask-image: linear-gradient(to left, rgba(0,0,0,1), transparent);">
-        </div>
-        
-        <div class="container" style="position: relative; z-index: 1;">
-            <div style="max-width: 800px;" data-aos="fade-up">
-                <span style="display: inline-block; padding: 6px 12px; background: #eff6ff; color: #2563eb; font-size: 0.7rem; font-weight: 800; border-radius: 6px; letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;">Verified Accommodations</span>
-                <h1 style="font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: #0f172a; letter-spacing: -0.04em;">
-                    Find Your Perfect<br><span style="color: #2563eb;">Home Away</span><br>From Home
-                </h1>
-                <p style="font-size: 1.25rem; max-width: 550px; margin-bottom: 48px; color: #64748b; line-height: 1.6;">
-                    Luxury student living simplified. Discover pre-verified properties near your campus with all-inclusive billing and community perks.
-                </p>
-                
-                <div class="mobile-stack" style="display: flex; gap: 12px; background: #ffffff; padding: 12px; border-radius: 20px; box-shadow: 0 30px 60px -12px rgba(0,0,0,0.1); border: 1px solid #f1f5f9; max-width: 600px;">
-                    <div style="flex: 1; position: relative; width: 100%;">
-                        <i data-lucide="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; color: #94a3b8;"></i>
-                        <input type="text" placeholder="Search University or City..." style="width: 100%; padding: 16px 16px 16px 48px; border: none; font-size: 1rem; outline: none;">
-                    </div>
-                    <button class="btn btn-primary" style="padding: 16px 32px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                        <i data-lucide="map-pin" style="width: 18px;"></i> Explore Now
-                    </button>
-                </div>
-                
-                <div style="margin-top: 40px; display: flex; align-items: center; gap: 24px;">
-                    <div style="display: flex; -webkit-mask-image: linear-gradient(to right, black 70%, transparent);">
-                        <img src="https://i.pravatar.cc/150?u=1" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff;">
-                        <img src="https://i.pravatar.cc/150?u=2" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff; margin-left: -12px;">
-                        <img src="https://i.pravatar.cc/150?u=3" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffffff; margin-left: -12px;">
-                    </div>
-                    <p style="font-size: 0.9rem; color: #64748b; font-weight: 500;">Liked by <span style="color: #0f172a; font-weight: 700;">2,400+</span> students this year</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Decorative Element -->
-        <div class="mobile-hide" style="position: absolute; bottom: 40px; right: 10%; width: 400px; height: 300px; z-index: 1;" data-aos="fade-left">
-             <div style="width: 100%; height: 100%; background: #ffffff; border-radius: 40px; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15); overflow: hidden; transform: rotate(2deg);">
-                 <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=600" style="width: 100%; height: 100%; object-fit: cover;">
-                 <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
-                    <p style="font-weight: 700; font-size: 0.8rem;">Fully Booked in London</p>
-                 </div>
-             </div>
-        </div>
-    </section>
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="#" class="nav-logo">Stay<span>Student</span></a>
+  <div class="nav-actions">
+    <a href="#listings" class="btn btn-ghost">View Rooms</a>
+    <a href="https://wa.me/447444543287" target="_blank" class="btn btn-wa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</nav>
 
-    <!-- Featured Listings -->
-    <section class="section-padding">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 50px;">
-                <div data-aos="fade-up">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 12px;">Featured Properties</h2>
-                    <p style="color: var(--text-muted);">Hand-picked top-rated student homes for you.</p>
-                </div>
-                <a href="listings.html" style="color: var(--primary); font-weight: 600;" data-aos="fade-up">View all listings &rarr;</a>
-            </div>
-            
-            <div id="featured-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;">
-                <!-- Dynamically loaded -->
-            </div>
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">Verified UK Student Homes</span>
+      <h1>Find your <em>perfect home</em> near campus</h1>
+      <p>We connect students with safe, affordable, verified accommodation across the UK. Tell us what you need and we find it for you.</p>
+      <div class="hero-ctas">
+        <a href="#listings" class="btn btn-dark">See Available Rooms</a>
+        <a href="#request" class="btn btn-accent">Request Accommodation</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Verified rooms</div>
         </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="section-padding" style="background-color: var(--white);">
-        <div class="container">
-            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
-                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">Why Choose StayStudent?</h2>
-                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">We take the stress out of finding accommodation, so you can focus on your studies.</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
-                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                        <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
-                    </div>
-                    <h3>Verified Properties</h3>
-                    <p style="color: var(--text-muted); margin-top: 12px;">Every listing on our platform is personally verified by our local experts.</p>
-                </div>
-                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                        <i data-lucide="zap" style="width: 32px; height: 32px;"></i>
-                    </div>
-                    <h3>Fast Booking</h3>
-                    <p style="color: var(--text-muted); margin-top: 12px;">Inquiry directly via WhatsApp for instant response and quick viewings.</p>
-                </div>
-                <div class="card" style="padding: 40px; text-align: center; border: none; background: var(--accent);" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                        <i data-lucide="credit-card" style="width: 32px; height: 32px;"></i>
-                    </div>
-                    <h3>No Hidden Fees</h3>
-                    <p style="color: var(--text-muted); margin-top: 12px;">Transperant pricing with detailed information on what's included.</p>
-                </div>
-            </div>
+        <div>
+          <div class="stat-num">12+</div>
+          <div class="stat-label">UK cities</div>
         </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="section-padding">
-        <div class="container">
-            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
-                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">How It Works</h2>
-                <p style="color: var(--text-muted);">Your journey to the perfect student home in four simple steps.</p>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-                <div style="text-align: center;" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
-                        <i data-lucide="search" style="color: #2563eb; width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.25rem;">Browse</h3>
-                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Explore verified listings near your chosen university campus.</p>
-                </div>
-                <div style="text-align: center;" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
-                        <i data-lucide="message-square" style="color: #2563eb; width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.25rem;">Request</h3>
-                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Book a viewing or inquire via WhatsApp with one click.</p>
-                </div>
-                <div style="text-align: center;" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
-                        <i data-lucide="file-check" style="color: #2563eb; width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.25rem;">Verify</h3>
-                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Submit your documents securely through our digital portal.</p>
-                </div>
-                <div style="text-align: center;" data-aos="fade-up">
-                    <div style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid #dbeafe;">
-                        <i data-lucide="key" style="color: #2563eb; width: 28px; height: 28px;"></i>
-                    </div>
-                    <h3 style="font-size: 1.25rem;">Move In</h3>
-                    <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; line-height: 1.5;">Sign your contract and collect your keys. Welcome home!</p>
-                </div>
-            </div>
+        <div>
+          <div class="stat-num">No</div>
+          <div class="stat-label">Hidden fees</div>
         </div>
-    </section>
-
-    <!-- Expertise / About Agent Section -->
-    <section class="section-padding" style="background: var(--white); border-top: 1px solid #f1f5f9;">
-        <div class="container">
-            <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center;">
-                <div data-aos="fade-right">
-                    <div style="position: relative;">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" style="width: 100%; height: 500px; object-fit: cover; border-radius: 40px; box-shadow: var(--shadow-xl);">
-                        <div class="glass" style="position: absolute; bottom: 30px; left: -30px; background: rgba(255,255,255,0.9); padding: 24px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: var(--shadow-lg); width: 280px;">
-                             <p style="font-style: italic; color: #0f172a; font-size: 0.95rem; margin-bottom: 12px; line-height: 1.4;">"We don't just find you a room; we find the foundation for your academic success."</p>
-                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 2px; background: #2563eb;"></div>
-                                <p style="font-weight: 700; font-size: 0.85rem;">Sarah Jenkins, <span style="color: #64748b; font-weight: 500;">Principal Agent</span></p>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div data-aos="fade-left">
-                    <p style="font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">About the Agent</p>
-                    <h2 style="font-size: 2.8rem; margin-bottom: 24px;">Expertise You Can Trust</h2>
-                    <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; margin-bottom: 32px;">
-                        With over 12 years of experience in student housing, UniStay Elite was founded on the principle that students deserve better. We bridge the gap between private landlords and student needs.
-                    </p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 24px;">
-                        <div style="display: flex; gap: 20px;">
-                            <div style="width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <i data-lucide="check-circle" style="color: #2563eb;"></i>
-                            </div>
-                            <div>
-                                <h4 style="font-size: 1.1rem; margin-bottom: 4px;">100% Verified Listings</h4>
-                                <p style="color: #64748b; font-size: 0.9rem;">Every property is physically inspected to meet our strict safety and quality standards.</p>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 20px;">
-                            <div style="width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <i data-lucide="headphones" style="color: #2563eb;"></i>
-                            </div>
-                            <div>
-                                <h4 style="font-size: 1.1rem; margin-bottom: 4px;">24/7 Student Support</h4>
-                                <p style="color: #64748b; font-size: 0.9rem;">Our dedicated concierge team is always available for maintenance or emergency requests.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="about.html" class="btn btn-primary" style="margin-top: 40px; border-radius: 30px; padding: 14px 28px;">Learn Our Story</a>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="hero-img fade-up">
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=80" alt="Student home">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        <div>
+          <div class="badge-text">WhatsApp us anytime</div>
+          <div class="badge-sub">+44 7444 543287</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Testimonials -->
-    <section class="section-padding" style="background: var(--accent);">
-        <div class="container">
-            <div style="text-align: center; margin-bottom: 60px;" data-aos="fade-up">
-                <h2 style="font-size: 2.5rem;">Student Stories</h2>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                <div class="card" style="padding: 30px;" data-aos="fade-up">
-                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                        <img src="https://i.pravatar.cc/150?u=a1" alt="Student" style="width: 50px; height: 50px; border-radius: 50%;">
-                        <div>
-                            <h4 style="margin: 0;">Sarah Johnson</h4>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">UCL Manchester</span>
-                        </div>
-                    </div>
-                    <p style="font-style: italic; color: var(--text-muted);">"Found an amazing studio through StayStudent. The WhatsApp support was super fast!"</p>
-                </div>
-                <div class="card" style="padding: 30px;" data-aos="fade-up">
-                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                        <img src="https://i.pravatar.cc/150?u=a2" alt="Student" style="width: 50px; height: 50px; border-radius: 50%;">
-                        <div>
-                            <h4 style="margin: 0;">Mark Davies</h4>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">King's College London</span>
-                        </div>
-                    </div>
-                    <p style="font-style: italic; color: var(--text-muted);">"No hidden fees and the property was exactly as shown in the photos. Highly recommended."</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ── HOW IT WORKS ──────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container section-center">
+    <span class="section-tag">Simple process</span>
+    <h2 class="section-title fade-up">Three steps to your new home</h2>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h3>Tell us what you need</h3>
+        <p>Fill in the form below with your city, budget, and move-in date. It takes two minutes.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <h3>We match you</h3>
+        <p>We reply within 24 hours with options that fit your requirements and budget.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <h3>Move in</h3>
+        <p>View the property, sign your contract, collect your keys. Done.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- CTA Section -->
-    <section class="section-padding" style="background: var(--primary); color: var(--white); text-align: center;">
-        <div class="container" data-aos="fade-up">
-            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to find your new home?</h2>
-            <p style="margin-bottom: 40px; font-size: 1.1rem; opacity: 0.9;">Join thousands of students who found their perfect stay with us.</p>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <a href="listings.html" class="btn" style="background: var(--white); color: var(--primary); padding: 16px 32px;">Browse All Rooms</a>
-                <a href="contact.html" class="btn" style="border: 1px solid var(--white); color: var(--white); padding: 16px 32px;">Contact Agent</a>
-            </div>
-        </div>
-    </section>
+<!-- ── LISTINGS ──────────────────────────────────────────────────── -->
+<section class="section" id="listings" style="background: var(--white); border-top: 1px solid var(--border);">
+  <div class="container">
+    <span class="section-tag">Currently available</span>
+    <h2 class="section-title fade-up">Rooms ready to move into</h2>
+    <p class="section-sub" style="margin: 0;">These are updated regularly. Contact us for the latest availability and pricing.</p>
 
-    <!-- Footer -->
-    <footer style="background: #0f172a; color: #ffffff; padding: 80px 0 40px; margin-top: 80px;">
-        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; margin-bottom: 60px;">
-            <div>
-                <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em; color: #ffffff; margin-bottom: 24px;">
-                    <div style="width: 32px; height: 32px; background: #2563eb; color: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="home" style="width: 18px; height: 18px;"></i>
-                    </div>
-                    UniStay<span style="color: #2563eb;">Elite</span>
-                </a>
-                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
-                    Your trusted partner in finding the best student accommodation across the UK. Verified properties, simple booking.
-                </p>
-                <div style="display: flex; gap: 16px;">
-                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="facebook" style="width: 20px;"></i></a>
-                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="instagram" style="width: 20px;"></i></a>
-                    <a href="#" style="color: #ffffff; opacity: 0.6;"><i data-lucide="twitter" style="width: 20px;"></i></a>
-                </div>
-            </div>
-            <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Quick Links</h4>
-                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
-                    <li><a href="index.html" style="color: inherit;">Home</a></li>
-                    <li><a href="listings.html" style="color: inherit;">Browse Listings</a></li>
-                    <li><a href="about.html" style="color: inherit;">About Us</a></li>
-                    <li><a href="contact.html" style="color: inherit;">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Support</h4>
-                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
-                    <li><a href="#" style="color: inherit;">Privacy Policy</a></li>
-                    <li><a href="#" style="color: inherit;">Terms of Service</a></li>
-                    <li><a href="#" style="color: inherit;">Student Guide</a></li>
-                    <li><a href="#" style="color: inherit;">Partner with Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 24px;">Contact</h4>
-                <ul style="display: flex; flex-direction: column; gap: 12px; color: #94a3b8; font-size: 0.9rem;">
-                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mail" style="width: 16px;"></i> bun.otravelservices@gmail.com</li>
-                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="phone" style="width: 16px;"></i> +44 7444 543287</li>
-                    <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="message-circle" style="width: 16px;"></i> WhatsApp Inquiry Available</li>
-                </ul>
-            </div>
-        </div>
-        <div class="container" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; color: #64748b; font-size: 0.85rem;">
-            <p>&copy; 2024 UniStay Elite. All rights reserved.</p>
-            <div style="display: flex; gap: 24px;">
-                <a href="login.html" style="color: inherit;">Member Login</a>
-                <a href="#" style="color: inherit;">Sitemap</a>
-            </div>
-        </div>
-    </footer>
+    <div class="listings-grid">
 
-    <!-- Scripts -->
-    <script type="module" src="js/api.js"></script>
-    <script type="module" src="js/app.js.js"></script>
-    <script type="module">
-        import StayStudentAPI from './js/api.js';
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            const featuredGrid = document.querySelector('#featured-grid');
-            const featured = await StayStudentAPI.getFeaturedListings();
-            
-            if (featuredGrid) {
-                featuredGrid.innerHTML = featured.length > 0 
-                  ? featured.map(p => window.createListingCard(p)).join('')
-                  : '<p style="grid-column: 1/-1; text-align:center;">Coming soon!</p>';
-                  
-                if (window.lucide) window.lucide.createIcons();
-            }
-        });
-    </script>
-    <script>
-        lucide.createIcons();
-    </script>
+      <!-- Card 1 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge">Available</span>
+          <div class="card-price">£165/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">Manchester</div>
+          <div class="card-title">Bright En-suite Near MMU</div>
+          <div class="card-features">
+            <span class="feature-pill">En-suite</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">WiFi</span>
+            <span class="feature-pill">5 min walk</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I'm interested in the En-suite near MMU in Manchester." target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge">Available</span>
+          <div class="card-price">£220/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">London</div>
+          <div class="card-title">Studio Flat - Zone 2</div>
+          <div class="card-features">
+            <span class="feature-pill">Studio</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">Gym</span>
+            <span class="feature-pill">Private Kitchen</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I'm interested in the Studio Flat in London Zone 2." target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge">Available</span>
+          <div class="card-price">£140/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">Birmingham</div>
+          <div class="card-title">House Share - Double Room</div>
+          <div class="card-features">
+            <span class="feature-pill">House Share</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">Garden</span>
+            <span class="feature-pill">Near BCU</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I'm interested in the Double Room house share in Birmingham." target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge">Available</span>
+          <div class="card-price">£155/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">Liverpool</div>
+          <div class="card-title">Modern En-suite Near UoL</div>
+          <div class="card-features">
+            <span class="feature-pill">En-suite</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">Laundry</span>
+            <span class="feature-pill">Secure Entry</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I'm interested in the En-suite near UoL in Liverpool." target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge unavailable">Coming Soon</span>
+          <div class="card-price">£180/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">Leeds</div>
+          <div class="card-title">Premium Studio - City Centre</div>
+          <div class="card-features">
+            <span class="feature-pill">Studio</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">Concierge</span>
+            <span class="feature-pill">Near UoL</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I want to be notified when the Leeds studio becomes available." target="_blank" class="btn btn-wa">Get Notified</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="listing-card fade-up">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop&q=80" alt="Room">
+          <span class="card-badge">Available</span>
+          <div class="card-price">£130/pw</div>
+        </div>
+        <div class="card-body">
+          <div class="card-city">Sheffield</div>
+          <div class="card-title">Shared House - Single Room</div>
+          <div class="card-features">
+            <span class="feature-pill">House Share</span>
+            <span class="feature-pill">Bills Inc.</span>
+            <span class="feature-pill">Friendly House</span>
+            <span class="feature-pill">Near UoS</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://wa.me/447444543287?text=Hello, I'm interested in the Single Room in Sheffield." target="_blank" class="btn btn-wa">WhatsApp</a>
+            <a href="#request" class="btn btn-ghost">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /listings-grid -->
+  </div>
+</section>
+
+<!-- ── REQUEST FORM ───────────────────────────────────────────────── -->
+<section class="section-dark" id="request">
+  <div class="container">
+    <span class="section-tag">Find your room</span>
+    <h2 class="section-title fade-up" style="color: var(--white);">Tell us what you need</h2>
+    <p class="section-sub fade-up">Fill in the form and we reply within 24 hours with options that match your requirements. No commitment, no fees.</p>
+
+    <div class="form-wrap">
+      <div class="form-info fade-up">
+        <h3>We're here to help</h3>
+        <p>Whether you know exactly what you want or just need some guidance, reach out and we'll sort it.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val">bun.otravelservices@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.82-.82a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.93 16.91z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone / WhatsApp</div>
+            <div class="contact-val">+44 7444 543287</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/447444543287?text=Hello! I'm looking for student accommodation." target="_blank" class="btn btn-wa" style="margin-top: 12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+
+      <div class="fade-up">
+        <form class="form-card" id="request-form" novalidate>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Full Name *</label>
+              <input type="text" name="from_name" placeholder="John Smith" required>
+            </div>
+            <div class="field">
+              <label>Email *</label>
+              <input type="email" name="from_email" placeholder="you@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" name="phone" placeholder="+44 7700 000000">
+            </div>
+            <div class="field">
+              <label>University</label>
+              <input type="text" name="university" placeholder="e.g. University of Manchester">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Preferred City *</label>
+              <select name="city" required>
+                <option value="">Select city...</option>
+                <option>London</option>
+                <option>Manchester</option>
+                <option>Birmingham</option>
+                <option>Liverpool</option>
+                <option>Leeds</option>
+                <option>Sheffield</option>
+                <option>Bristol</option>
+                <option>Newcastle</option>
+                <option>Coventry</option>
+                <option>Other (specify below)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Room Type</label>
+              <select name="room_type">
+                <option value="">Any type</option>
+                <option>En-suite</option>
+                <option>Studio</option>
+                <option>House Share</option>
+                <option>Apartment</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Weekly Budget (£)</label>
+              <select name="budget">
+                <option value="">Flexible</option>
+                <option>Up to £120/pw</option>
+                <option>£120 - £160/pw</option>
+                <option>£160 - £200/pw</option>
+                <option>£200 - £250/pw</option>
+                <option>£250+/pw</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Move-in Date</label>
+              <input type="date" name="move_in_date">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Anything else we should know?</label>
+            <textarea name="message" placeholder="e.g. bills included preferred, near specific campus building, travelling with a friend..."></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" id="submit-btn" class="btn btn-accent" style="padding: 13px 28px; font-size: 0.95rem;">Send Request</button>
+            <span style="color: #555c6a; font-size: 0.8rem;">We reply within 24 hours.</span>
+          </div>
+
+          <!-- Success / error feedback -->
+          <div id="form-success" style="display:none; margin-top:16px; background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.3); color:#25D366; padding:14px 18px; border-radius:10px; font-size:0.9rem; font-weight:600;">
+            Request sent! We'll be in touch within 24 hours.
+          </div>
+          <div id="form-error" style="display:none; margin-top:16px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#f87171; padding:14px 18px; border-radius:10px; font-size:0.9rem; font-weight:600;">
+            Something went wrong. Please try WhatsApp instead.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <p>&copy; 2026 StayStudent Agency &nbsp;|&nbsp; <a href="mailto:bun.otravelservices@gmail.com">bun.otravelservices@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+447444543287">+44 7444 543287</a> &nbsp;|&nbsp; <a href="admin.html">Admin</a></p>
+</footer>
+
+<script>
+  // ── EmailJS ──────────────────────────────────────────────────────
+  // Paste your Public Key from emailjs.com -> Account -> API Keys
+  const EMAILJS_PUBLIC_KEY  = 'xo8gQKAqkArsUUaHj';   // <-- replace this
+  const EMAILJS_SERVICE_ID  = 'service_qz11e0i';
+  const EMAILJS_TEMPLATE_ID = 'template_1anx0sc';
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  document.getElementById('request-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form    = this;
+    const btn     = document.getElementById('submit-btn');
+    const success = document.getElementById('form-success');
+    const error   = document.getElementById('form-error');
+
+    // Basic validation
+    const name  = form.querySelector('[name="from_name"]').value.trim();
+    const email = form.querySelector('[name="from_email"]').value.trim();
+    const city  = form.querySelector('[name="city"]').value;
+
+    if (!name || !email || !city) {
+      error.textContent = 'Please fill in your name, email, and preferred city.';
+      error.style.display = 'block';
+      success.style.display = 'none';
+      return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    success.style.display = 'none';
+    error.style.display   = 'none';
+
+    // emailjs.sendForm reads all [name] fields from the form automatically.
+    // Each field's [name] attribute maps to a {{variable}} in your template.
+    // Your template should contain: {{from_name}}, {{from_email}}, {{phone}},
+    // {{university}}, {{city}}, {{room_type}}, {{budget}}, {{move_in_date}}, {{message}}
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+      .then(function() {
+        success.style.display = 'block';
+        form.reset();
+      })
+      .catch(function(err) {
+        console.error('EmailJS error:', err);
+        error.textContent = 'Something went wrong. Please try WhatsApp instead.';
+        error.style.display = 'block';
+      })
+      .finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Send Request';
+      });
+  });
+
+  // ── Scroll fade-in ───────────────────────────────────────────────
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (e.target.dataset.delay || 0) + 'ms';
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    if (el.closest('.listings-grid')) el.dataset.delay = (i % 3) * 80;
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
